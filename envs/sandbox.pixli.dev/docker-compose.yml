@@ -1,76 +1,70 @@
 version: "3.8"
 
 services:
-  proxy:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-proxy:latest
-    container_name: proxy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      - APP_DOMAIN=sandbox.pixli.dev
-      - CERT_EMAIL=ph.soff@gmail.com
-      - PORTAL_HOST="portal:8000"
-      - PROJECT_HOST="project:8001"
-      - WEB_APP_HOST="webapp"
-    volumes:
-      #  Caddy data: don't change!
-      - caddy:/data
-    depends_on:
-      - portal
-      - project
-      - node
-      - webapp
+  # proxy:
+  #   image: ghcr.io/reframework/px-proxy:latest
+  #   container_name: proxy
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #     - "443:443/udp"
+  #   environment:
+  #     - APP_DOMAIN=sandbox.pixli.dev
+  #     - CERT_EMAIL=ph.soff@gmail.com
+  #     - PORTAL_HOST="portal:8000"
+  #     - PROJECT_HOST="project:8001"
+  #     - WEB_APP_HOST="webapp"
+  #   volumes:
+  #     #  Caddy data: don't change!
+  #     - caddy:/data
+  #   depends_on:
+  #     - portal
+  #     - project
+  #     - node
+  #     - webapp
 
-  webapp:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-web-app:latest
-    container_name: webapp
-    restart: unless-stopped
-    ports:
-      - "80:80"
+  # webapp:
+  #   image: ghcr.io/reframework/px-web-app:latest
+  #   container_name: webapp
+  #   restart: unless-stopped
+  #   ports:
+  #     - "80:80"
 
-  portal:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-api-portal:latest
-    container_name: portal
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - "8000:8000"
-    depends_on:
-      - migrate
+  # portal:
+  #   image: ghcr.io/reframework/px-api-portal:latest
+  #   container_name: portal
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - migrate
 
-  project:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-api-project:latest
-    container_name: project
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - "8001:8001"
-    depends_on:
-      - portal
+  # project:
+  #   image: ghcr.io/reframework/px-api-project:latest
+  #   container_name: project
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8001:8001"
+  #   depends_on:
+  #     - portal
 
-  node:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-api-node:latest
-    container_name: node
-    restart: unless-stopped
-    env_file:
-      - .env
-    ports:
-      - "8002:8002"
-    depends_on:
-      - portal
+  # node:
+  #   image: ghcr.io/reframework/px-api-node:latest
+  #   container_name: node
+  #   restart: unless-stopped
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - "8002:8002"
+  #   depends_on:
+  #     - portal
 
   postgres:
-    platform: linux/x86_64
     image: ghcr.io/reframework/px-postgres:latest
     container_name: postgres
     restart: unless-stopped
@@ -81,35 +75,33 @@ services:
     ports:
       - 5432:5432
 
-  pgadmin:
-    platform: linux/x86_64
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "8080:80"
-    depends_on:
-      - postgres
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   container_name: pgadmin
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@example.com
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - postgres
 
-  migrate:
-    platform: linux/x86_64
-    image: ghcr.io/reframework/px-api-migration:latest
-    restart: on-failure
-    container_name: migrate
-    entrypoint:
-      [
-        "migrate",
-        "-path",
-        "/migrations",
-        "-database",
-        "postgres://postgres:postgres@postgres:5432/portal?sslmode=disable",
-      ]
-    command: ["up"]
-    depends_on:
-      - postgres
+  # migrate:
+  #   image: ghcr.io/reframework/px-api-migration:latest
+  #   restart: on-failure
+  #   container_name: migrate
+  #   entrypoint:
+  #     [
+  #       "migrate",
+  #       "-path",
+  #       "/migrations",
+  #       "-database",
+  #       "postgres://postgres:postgres@postgres:5432/portal?sslmode=disable",
+  #     ]
+  #   command: ["up"]
+  #   depends_on:
+  #     - postgres
 
 volumes:
   caddy:
