@@ -1,0 +1,14 @@
+name: Portainer Webhook
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Curl request to Portainer Webhook
+        run: |
+          curl -X POST -H "Content-Type: application/json" ${{ env.PORTAINER_DEV_SANDBOX }}

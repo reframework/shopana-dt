@@ -1,0 +1,110 @@
+version: "3.8"
+
+services:
+  proxy:
+    image: ghcr.io/reframework/px-proxy:latest
+    container_name: proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      # sandbox.pixli.dev
+      - APP_DOMAIN=${APP_DOMAIN}
+      - CERT_EMAIL=${CERT_EMAIL}
+      - PORTAL_HOST="portal:8000"
+      - PROJECT_HOST="project:8001"
+      - WEB_APP_HOST="webapp"
+    volumes:
+      #  Caddy data: don't change!
+      - caddy:/data
+    depends_on:
+      - portal
+      - project
+      - node
+      - webapp
+    networks:
+      - main
+
+  webapp:
+    image: ghcr.io/reframework/px-web-app:latest
+    container_name: webapp
+    restart: unless-stopped
+    ports:
+      - "80:80"
+
+
+  portal:
+    image: ghcr.io/reframework/px-api-portal:latest
+    container_name: portal
+    restart: unless-stopped
+    # environment:
+    #   - CONFIG_FILE_PATH=/app/.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - migrate
+
+  project:
+    image: ghcr.io/reframework/px-api-project:latest
+    container_name: project
+    restart: unless-stopped
+    # environment:
+    #   - CONFIG_FILE_PATH=/app/.env
+    ports:
+      - "8001:8001"
+    depends_on:
+      - portal
+
+  node:
+    image: ghcr.io/reframework/px-api-node:latest
+    container_name: node
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    depends_on:
+      - portal
+
+  postgres:
+    image: ghcr.io/reframework/px-postgres:latest
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+  migrate:
+    image: ghcr.io/reframework/px-api-migration:latest
+    restart: on-failure
+    container_name: migrate
+    entrypoint:
+      [
+        "migrate",
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@postgres:5432/portal?sslmode=disable",
+      ]
+    command: ["up"]
+    depends_on:
+      - postgres
+
+volumes:
+  caddy:
+    driver: local
