@@ -91,15 +91,8 @@ services:
     image: ghcr.io/reframework/px-api-migration:latest
     restart: on-failure
     container_name: migrate
-    entrypoint:
-      [
-        "migrate",
-        "-path",
-        "/migrations",
-        "-database",
-        "postgres://postgres:postgres@postgres:5432/portal?sslmode=disable",
-      ]
-    command: ["up"]
+    env_file:
+      - .env
     depends_on:
       - postgres
 
