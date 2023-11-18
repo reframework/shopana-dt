@@ -24,8 +24,6 @@ services:
       - project
       - node
       - webapp
-    networks:
-      - main
 
   webapp:
     image: ghcr.io/reframework/px-web-app:latest
