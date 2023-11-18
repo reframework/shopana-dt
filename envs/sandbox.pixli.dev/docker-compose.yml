@@ -1,57 +1,57 @@
 version: "3.8"
 
 services:
-  # proxy:
-  #   image: ghcr.io/reframework/px-proxy:latest
-  #   container_name: proxy
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
-  #     - "443:443"
-  #     - "443:443/udp"
-  #   environment:
-  #     - APP_DOMAIN=sandbox.pixli.dev
-  #     - CERT_EMAIL=ph.soff@gmail.com
-  #     - PORTAL_HOST="portal:8000"
-  #     - PROJECT_HOST="project:8001"
-  #     - WEB_APP_HOST="webapp"
-  #   volumes:
-  #     #  Caddy data: don't change!
-  #     - caddy:/data
-  #   depends_on:
-  #     - portal
-  #     - project
-  #     - node
-  #     - webapp
+  proxy:
+    image: ghcr.io/reframework/px-proxy:latest
+    container_name: proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      - APP_DOMAIN=sandbox.pixli.dev
+      - CERT_EMAIL=ph.soff@gmail.com
+      - PORTAL_HOST="portal:8000"
+      - PROJECT_HOST="project:8001"
+      - WEB_APP_HOST="webapp"
+    volumes:
+      #  Caddy data: don't change!
+      - caddy:/data
+    depends_on:
+      - portal
+      - project
+      - node
+      - webapp
 
-  # webapp:
-  #   image: ghcr.io/reframework/px-web-app:latest
-  #   container_name: webapp
-  #   restart: unless-stopped
-  #   ports:
-  #     - "80:80"
+  webapp:
+    image: ghcr.io/reframework/px-web-app:latest
+    container_name: webapp
+    restart: unless-stopped
+    ports:
+      - "80:80"
 
-  # portal:
-  #   image: ghcr.io/reframework/px-api-portal:latest
-  #   container_name: portal
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - migrate
+  portal:
+    image: ghcr.io/reframework/px-api-portal:latest
+    container_name: portal
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - migrate
 
-  # project:
-  #   image: ghcr.io/reframework/px-api-project:latest
-  #   container_name: project
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "8001:8001"
-  #   depends_on:
-  #     - portal
+  project:
+    image: ghcr.io/reframework/px-api-project:latest
+    container_name: project
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8001:8001"
+    depends_on:
+      - portal
 
   node:
     image: ghcr.io/reframework/px-api-node:latest
