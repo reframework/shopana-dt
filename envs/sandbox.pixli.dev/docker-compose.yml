@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   proxy:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-proxy:latest
     container_name: proxy
     restart: unless-stopped
@@ -25,6 +26,7 @@ services:
       - webapp
 
   webapp:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-web-app:latest
     container_name: webapp
     restart: unless-stopped
@@ -32,6 +34,7 @@ services:
       - "80:80"
 
   portal:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-api-portal:latest
     container_name: portal
     restart: unless-stopped
@@ -43,6 +46,7 @@ services:
       - migrate
 
   project:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-api-project:latest
     container_name: project
     restart: unless-stopped
@@ -54,6 +58,7 @@ services:
       - portal
 
   node:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-api-node:latest
     container_name: node
     restart: unless-stopped
@@ -65,6 +70,7 @@ services:
       - portal
 
   postgres:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-postgres:latest
     container_name: postgres
     restart: unless-stopped
@@ -76,6 +82,7 @@ services:
       - 5432:5432
 
   pgadmin:
+    platform: linux/x86_64
     image: dpage/pgadmin4
     container_name: pgadmin
     restart: always
@@ -88,6 +95,7 @@ services:
       - postgres
 
   migrate:
+    platform: linux/x86_64
     image: ghcr.io/reframework/px-api-migration:latest
     restart: on-failure
     container_name: migrate
