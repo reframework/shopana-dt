@@ -14,7 +14,7 @@ services:
       - CERT_EMAIL=ph.soff@gmail.com
       - PORTAL_HOST="portal:8000"
       - PROJECT_HOST="project:8001"
-      - WEB_APP_HOST="webapp:3000"
+      - WEB_APP_HOST="webapp"
     volumes:
       #  Caddy data: don't change!
       - caddy:/data
@@ -28,8 +28,6 @@ services:
     image: ghcr.io/reframework/px-web-app:latest
     container_name: webapp
     restart: unless-stopped
-    ports:
-      - "3000:80"
 
   portal:
     image: ghcr.io/reframework/px-api-portal:latest
@@ -37,8 +35,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    ports:
-      - "4000:8000"
     depends_on:
       - migrate
 
@@ -48,8 +44,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    ports:
-      - "4001:8001"
     depends_on:
       - portal
 
@@ -59,8 +53,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    ports:
-      - "4002:8002"
     depends_on:
       - portal
 
@@ -72,20 +64,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
-    ports:
-      - 5432:5432
-
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@example.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "4040:80"
-    depends_on:
-      - postgres
 
   migrate:
     image: ghcr.io/reframework/px-api-migration:latest
