@@ -53,16 +53,16 @@ services:
   #   depends_on:
   #     - portal
 
-  # node:
-  #   image: ghcr.io/reframework/px-api-node:latest
-  #   container_name: node
-  #   restart: unless-stopped
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "8002:8002"
-  #   depends_on:
-  #     - portal
+  node:
+    image: ghcr.io/reframework/px-api-node:latest
+    container_name: node
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "8002:8002"
+    depends_on:
+      - portal
 
   postgres:
     image: ghcr.io/reframework/px-postgres:latest
@@ -75,17 +75,17 @@ services:
     ports:
       - 5432:5432
 
-  # pgadmin:
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin
-  #   restart: always
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: admin@example.com
-  #     PGADMIN_DEFAULT_PASSWORD: admin
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
 
   migrate:
     image: ghcr.io/reframework/px-api-migration:latest
