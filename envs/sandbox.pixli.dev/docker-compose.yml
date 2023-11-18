@@ -25,7 +25,7 @@ services:
       - webapp
 
   webapp:
-    image: ghcr.io/reframework/px-wep-app:latest
+    image: ghcr.io/reframework/px-web-app:latest
     container_name: webapp
     restart: unless-stopped
     ports:
