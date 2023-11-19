@@ -5,7 +5,7 @@ ls -a
 docker compose version
 
 cp ./envs/sandbox.pixli.dev/docker-compose.yml /usr/local/pixli/docker-compose.yml
-cd ./urs/pixli
+cd ./urs/local/pixli
 
 docker compose rm -f
 docker compose up -d --build
