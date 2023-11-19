@@ -1,2 +1,3 @@
 steps:
-  - command: deploy.sh
+  - label: ":docker: Build"
+    command: "deploy.sh"

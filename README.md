@@ -24,3 +24,12 @@ export CR_PAT=YOUR_TOKEN
 echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
 ```
+
+### Starting BK agent
+
+```bash
+
+sudo su buildkite-agent
+nohup buildkite-agent start & # Runs in background
+
+```
