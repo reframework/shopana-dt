@@ -4,7 +4,7 @@ ls -a
 
 docker compose version
 
-cp ./envs/sandbox.pixli.dev/docker-compose.yml /usr/local/sandbox.pixli/pixli.dev/docker-compose.yml
+cp ./envs/sandbox.pixli.dev/docker-compose.yml /usr/local/pixli/sandbox.pixli.dev/docker-compose.yml
 cd ./urs/pixli/sandbox.pixli.dev
 
 docker compose rm -f
