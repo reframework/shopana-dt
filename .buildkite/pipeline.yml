@@ -1,2 +1,4 @@
 steps:
-  - command: deploy.sh
+  - command: |
+      echo "Hello world"
+      deploy.sh
