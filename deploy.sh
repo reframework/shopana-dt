@@ -13,6 +13,7 @@ ls "$WORKDIR" -a
 
 cd "$WORKDIR"
 
+
 docker compose rm -f
 docker compose up -d --build
 

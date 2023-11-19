@@ -3,7 +3,7 @@ version: "3.8"
 services:
   proxy:
     image: ghcr.io/reframework/px-proxy:latest
-    container_name: proxy
+    # container_name: proxy
     restart: unless-stopped
     ports:
       - "80:80"
@@ -26,12 +26,12 @@ services:
 
   webapp:
     image: ghcr.io/reframework/px-web-app:latest
-    container_name: webapp
+    # container_name: webapp
     restart: unless-stopped
 
   portal:
     image: ghcr.io/reframework/px-api-portal:latest
-    container_name: portal
+    # container_name: portal
     restart: unless-stopped
     env_file:
       - .env
@@ -40,7 +40,7 @@ services:
 
   project:
     image: ghcr.io/reframework/px-api-project:latest
-    container_name: project
+    # container_name: project
     restart: unless-stopped
     env_file:
       - .env
@@ -49,7 +49,7 @@ services:
 
   node:
     image: ghcr.io/reframework/px-api-node:latest
-    container_name: node
+    # container_name: node
     restart: unless-stopped
     env_file:
       - .env
@@ -58,7 +58,7 @@ services:
 
   postgres:
     image: ghcr.io/reframework/px-postgres:latest
-    container_name: postgres
+    # container_name: postgres
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -68,7 +68,7 @@ services:
   migrate:
     image: ghcr.io/reframework/px-api-migration:latest
     restart: on-failure
-    container_name: migrate
+    # container_name: migrate
     env_file:
       - .env
     depends_on:
