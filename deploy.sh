@@ -1,11 +1,11 @@
 set -eo pipefail
 
-ls -a
+echo "Deploying Pixli Sandbox"
 
-docker compose version
+WORKDIR="/usr/local/pixli"
 
-cp ./envs/sandbox.pixli.dev/docker-compose.yml /usr/local/pixli/docker-compose.yml
-cd  /urs/local/pixli
+cp ./envs/sandbox.pixli.dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
+cd "$WORKDIR"
 
 docker compose rm -f
 docker compose up -d --build
