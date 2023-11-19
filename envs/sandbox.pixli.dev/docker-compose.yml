@@ -2,8 +2,7 @@ version: "3.8"
 
 services:
   proxy:
-    image: ghcr.io/reframework/px-proxy:latest
-    # container_name: proxy
+    image: ghcr.io/reframework/px-proxy:${PROXY_VERSION:-latest}
     restart: unless-stopped
     ports:
       - "80:80"
@@ -25,13 +24,11 @@ services:
       - webapp
 
   webapp:
-    image: ghcr.io/reframework/px-web-app:latest
-    # container_name: webapp
+    image: ghcr.io/reframework/px-web-app:${WEBAPP_VERSION:-latest}
     restart: unless-stopped
 
   portal:
-    image: ghcr.io/reframework/px-api-portal:latest
-    # container_name: portal
+    image: ghcr.io/reframework/px-api-portal:${PORTAL_VERSION:-latest}
     restart: unless-stopped
     env_file:
       - .env
@@ -39,8 +36,7 @@ services:
       - migrate
 
   project:
-    image: ghcr.io/reframework/px-api-project:latest
-    # container_name: project
+    image: ghcr.io/reframework/px-api-project:${PROJECT_VERSION:-latest}
     restart: unless-stopped
     env_file:
       - .env
@@ -48,8 +44,7 @@ services:
       - portal
 
   node:
-    image: ghcr.io/reframework/px-api-node:latest
-    # container_name: node
+    image: ghcr.io/reframework/px-api-node:${NODE_VERSION:-latest}
     restart: unless-stopped
     env_file:
       - .env
@@ -57,8 +52,7 @@ services:
       - portal
 
   postgres:
-    image: ghcr.io/reframework/px-postgres:latest
-    # container_name: postgres
+    image: ghcr.io/reframework/px-postgres:${POSTGRES_VERSION:-latest}
     restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
@@ -66,9 +60,8 @@ services:
       POSTGRES_DB: postgres
 
   migrate:
-    image: ghcr.io/reframework/px-api-migration:latest
+    image: ghcr.io/reframework/px-api-migration:${MIGRATE_VERSION:-latest}
     restart: on-failure
-    # container_name: migrate
     env_file:
       - .env
     depends_on:
