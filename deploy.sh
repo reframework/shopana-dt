@@ -6,11 +6,9 @@ WORKDIR="/usr/local/pixli"
 
 ls ./envs/sandbox.pixli.dev -a
 
-cp ./envs/sandbox.pixli.dev/* "$WORKDIR"
+cp -r ./envs/sandbox.pixli.dev "$WORKDIR"
 
 ls "$WORKDIR" -a
-
-mv "$WORKDIR/.env.local" "$WORKDIR/.env"
 
 cd "$WORKDIR"
 
