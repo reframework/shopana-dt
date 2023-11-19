@@ -4,7 +4,7 @@ echo "Deploying Pixli Sandbox"
 
 WORKDIR="/usr/local/pixli"
 
-ls -a
+ls ./envs/sandbox.pixli.dev -a
 
 cp ./envs/sandbox.pixli.dev/* "$WORKDIR"
 mv "$WORKDIR/.env.local" "$WORKDIR/.env"
