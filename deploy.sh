@@ -2,7 +2,7 @@ set -eo pipefail
 
 echo "Deploying Pixli Sandbox"
 
-WORKDIR="/usr/local/pixli"
+WORKDIR="$HOME/pixli"
 
 ls ./envs/sandbox.pixli.dev -a
 
