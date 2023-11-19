@@ -1,8 +1,3 @@
 steps:
-  # - label: "Skip checkout"
-  #   plugins:
-  #     - envato/no-command#v0.1.0: ~
-  #     - thedyrt/skip-checkout#v0.1.1: ~
-
   - label: ":docker: Build"
     command: "deploy.sh"
