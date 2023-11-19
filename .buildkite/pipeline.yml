@@ -1,3 +1,7 @@
 steps:
+  - label: "Skip checkout"
+    plugins:
+      - thedyrt/skip-checkout#v0.1.1: ~
+
   - label: ":docker: Build"
     command: "deploy.sh"
