@@ -21,7 +21,6 @@ services:
       - caddy:/data
     depends_on:
       - portal
-      - project
       - node
       - webapp
 
