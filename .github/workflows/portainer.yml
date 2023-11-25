@@ -7,10 +7,17 @@ on:
       - main
 
 jobs:
-  notify:
-    runs-on: ubuntu-latest
+  buildkite:
+    name: Buildkite
     if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
     steps:
-      - name: Curl request to Portainer Webhook
-        run: |
-          curl -X POST -H "Content-Type: application/json" ${{ env.PORTAINER_DEV_SANDBOX }}
+      - name: Trigger a Buildkite Build
+        uses: "buildkite/trigger-pipeline-action@v2.0.0"
+        with:
+          buildkite_api_access_token: ${{ secrets.RFW_BUILDKITE_TOKEN }}
+          pipeline: "reframework/deploy-stack"
+          branch: "main"
+          commit: "HEAD"
+          message:  ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
+          ignore_pipeline_branch_filter: true
