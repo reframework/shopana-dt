@@ -9,19 +9,15 @@ cd "$(find /var/lib/docker/volumes/portainer_data/_data/compose -type d -name "s
 
 ```
 
-### Restart a service in portainer stack
-
-```
-
-
-```
-
 ### Login to registry
 
 ```bash
 
-export CR_PAT=YOUR_TOKEN
-echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+# /etc/buildkite-agent/hooks/environment
+export DOCKER_LOGIN_PASSWORD=YOUR_TOKEN
+
+# In script before docker pull
+echo $DOCKER_LOGIN_PASSWORD | docker login ghcr.io -u USERNAME --password-stdin
 
 ```
 
@@ -29,7 +25,9 @@ echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
 
 ```bash
 
+# Set a buildkite-agent user (pipelines running using this user)
 sudo su buildkite-agent
-nohup buildkite-agent start & # Runs in background
+# Runs in background
+nohup buildkite-agent start &
 
 ```
