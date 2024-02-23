@@ -9,8 +9,7 @@ services:
       - "443:443"
       - "443:443/udp"
     environment:
-      - APP_DOMAIN=sandbox.pixli.dev
-      - CERT_EMAIL=ph.soff@gmail.com
+      - APP_DOMAIN=http://sandbox.pixli.dev
       # Hosts
       - API_HOST="portal:8000"
       - GQL_PLAYGROUND_HOST="portal:8000/graphql"
@@ -35,14 +34,6 @@ services:
       - .env
     depends_on:
       - migrate
-
-  node:
-    image: ghcr.io/reframework/px-api-node:${NODE_VERSION:-latest}
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on:
-      - portal
 
   postgres:
     image: ghcr.io/reframework/px-postgres:${POSTGRES_VERSION:-latest}
