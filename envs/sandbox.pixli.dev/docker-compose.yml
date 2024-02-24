@@ -1,29 +1,6 @@
 version: "3.8"
 
 services:
-  proxy:
-    image: ghcr.io/reframework/px-proxy:${PROXY_VERSION:-latest}
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
-    environment:
-      - APP_DOMAIN=sandbox.pixli.dev
-      - CERT_EMAIL=ph.soff@gmail.com
-      # Hosts
-      - API_HOST="portal:8000"
-      - GQL_PLAYGROUND_HOST="portal:8000/graphql"
-      - GQL_API_HOST="portal:8000/api/graphql"
-      - WEB_APP_HOST="webapp"
-    volumes:
-      #  Caddy data: don't change!
-      - caddy:/data
-    depends_on:
-      - portal
-      - node
-      - webapp
-
   webapp:
     image: ghcr.io/reframework/px-web-app:${WEBAPP_VERSION:-latest}
     restart: unless-stopped
@@ -31,18 +8,12 @@ services:
   portal:
     image: ghcr.io/reframework/px-api-portal:${PORTAL_VERSION:-latest}
     restart: unless-stopped
+    ports:
+      - "80:80"
     env_file:
       - .env
     depends_on:
       - migrate
-
-  node:
-    image: ghcr.io/reframework/px-api-node:${NODE_VERSION:-latest}
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on:
-      - portal
 
   postgres:
     image: ghcr.io/reframework/px-postgres:${POSTGRES_VERSION:-latest}
