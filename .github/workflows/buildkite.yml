@@ -23,9 +23,9 @@ jobs:
           token: ${{ github.token }}
           filters: |
             piknik:
-              - 'envs/piknik-dev.com.ua/**'
+              - 'envs/piknik-dev/**'
             pixli:
-              - 'envs/sandbox.pixli.dev/**'
+              - 'envs/pixli-dev**'
 
   deploy_piknik:
     name: Deploying to Piknik
