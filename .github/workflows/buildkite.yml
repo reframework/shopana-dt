@@ -43,6 +43,7 @@ jobs:
           branch: "main"
           commit: "HEAD"
           message: ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
+          build_env_vars: '{"BUILDKITE_DEPLOY_ENV": "piknik-dev"}'
           ignore_pipeline_branch_filter: true
 
   deploy_pixli:
@@ -61,4 +62,5 @@ jobs:
           branch: "main"
           commit: "HEAD"
           message: ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
+          build_env_vars: '{"BUILDKITE_DEPLOY_ENV": "pixli-dev"}'
           ignore_pipeline_branch_filter: true
