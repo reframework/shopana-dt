@@ -1,0 +1,64 @@
+name: Portainer Webhook
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  changes:
+    name: Checking for changes
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      piknik: ${{ steps.filter.outputs.piknik }}
+      pixli: ${{ steps.filter.outputs.pixli }}
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          token: ${{ github.token }}
+          filters: |
+            piknik:
+              - 'envs/piknik-dev.com.ua/**'
+            pixli:
+              - 'envs/sandbox.pixli.dev/**'
+
+  deploy_piknik:
+    name: Deploying to Piknik
+    needs: changes
+    if: |
+      needs.changes.outputs.piknik == 'true'
+      && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger a Buildkite Build
+        uses: "buildkite/trigger-pipeline-action@v2.0.0"
+        with:
+          buildkite_api_access_token: ${{ secrets.RFW_BUILDKITE_TOKEN }}
+          pipeline: "reframework/piknik-deploy-stack"
+          branch: "main"
+          commit: "HEAD"
+          message: ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
+          ignore_pipeline_branch_filter: true
+
+  deploy_pixli:
+    name: Deploying to Pixli
+    needs: changes
+    if: |
+      needs.changes.outputs.pixli == 'true'
+      && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger a Buildkite Build
+        uses: "buildkite/trigger-pipeline-action@v2.0.0"
+        with:
+          buildkite_api_access_token: ${{ secrets.RFW_BUILDKITE_TOKEN }}
+          pipeline: "reframework/deploy-stack"
+          branch: "main"
+          commit: "HEAD"
+          message: ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
+          ignore_pipeline_branch_filter: true
