@@ -4,7 +4,7 @@ echo "Deploying Pixli Sandbox"
 echo $WORKDIR
 
 # $WORKDIR = "/root/piknik-dev/stack"
-$HOST_STATIC_ROOT = "/root/piknik-dev/static"
+HOST_STATIC_ROOT = "/root/piknik-dev/static"
 
 mkdir -p "$WORKDIR"
 mkdir -p "$HOST_STATIC_ROOT"
