@@ -2,6 +2,9 @@ set -eo pipefail
 
 echo "Deploying Pixli Sandbox"
 
+$WORKDIR = "/root/piknik-dev/stack"
+$HOST_STATIC_ROOT = "/root/piknik-dev/static"
+
 mkdir -p "$WORKDIR"
 mkdir -p "$HOST_STATIC_ROOT"
 
