@@ -30,6 +30,8 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    volumes:
+      - "${HOST_STATIC_ROOT}:${FILES_DIR}"
     depends_on:
       - migrate
 
