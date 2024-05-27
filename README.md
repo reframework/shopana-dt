@@ -40,3 +40,5 @@ sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 ### Install Portainer
 
 https://docs.portainer.io/start/install-ce/server/docker/linux
+
+<!-- Running docker compose with .env --env-file /path/to/env (.env) -->

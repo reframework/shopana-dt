@@ -25,7 +25,7 @@ jobs:
             piknik:
               - 'envs/piknik-dev/**'
             pixli:
-              - 'envs/pixli-dev**'
+              - 'envs/pixli-dev/**'
 
   deploy_piknik:
     name: Deploying to Piknik

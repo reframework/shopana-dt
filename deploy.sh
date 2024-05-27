@@ -13,6 +13,6 @@ cd "$WORKDIR"
 echo $DOCKER_LOGIN_PASSWORD | docker login ghcr.io -u reframework-bot --password-stdin
 
 docker compose rm -f
-docker compose up -d --build
+docker compose --env-file .env up -d --build
 
 exit 0
