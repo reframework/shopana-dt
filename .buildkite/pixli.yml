@@ -1,0 +1,3 @@
+steps:
+  - label: ":docker: Build"
+    command: "envs/pixli-dev/deploy.sh"
