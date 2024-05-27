@@ -38,3 +38,11 @@ services:
     restart: on-failure
     env_file:
       - .env
+
+  db:
+    image: ghcr.io/reframework/px-postgres:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - /piknik-db-data:/var/lib/postgresql/data

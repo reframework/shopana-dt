@@ -5,6 +5,7 @@ echo $WORKDIR
 
 mkdir -p "$WORKDIR"
 mkdir -p "/piknik-static"
+mkdir -p "/piknik-db-data"
 
 cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
 cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
