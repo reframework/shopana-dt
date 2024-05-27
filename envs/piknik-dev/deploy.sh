@@ -9,10 +9,11 @@ echo $WORKDIR
 mkdir -p "$WORKDIR"
 mkdir -p "/piknik-static"
 
-# cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
-# cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
+cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
+cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
+cp -r ./envs/piknik-dev/nginx.conf "$WORKDIR/nginx.conf"
 
-cp -r ./envs/piknik-dev "$WORKDIR"
+# cp -r ./envs/piknik-dev "$WORKDIR"
 
 # Go to the working directory
 cd $WORKDIR
