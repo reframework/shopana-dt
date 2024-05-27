@@ -25,7 +25,7 @@ jobs:
             piknik:
               - 'envs/piknik-dev/**'
             pixli:
-              - 'envs/pixli-dev**'
+              - 'envs/pixli-dev/**'
 
   deploy_piknik:
     name: Deploying to Piknik
@@ -62,5 +62,5 @@ jobs:
           branch: "main"
           commit: "HEAD"
           message: ":traefik: Deploy stack: ${{ github.event.pull_request.title }}"
-          build_env_vars: '{"BUILDKITE_DEPLOY_ENV": "pixli-dev"}'
+          build_env_vars: '{"DEPLOY_ENV": "pixli-dev"}'
           ignore_pipeline_branch_filter: true

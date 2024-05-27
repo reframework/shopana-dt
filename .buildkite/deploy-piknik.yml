@@ -1,0 +1,3 @@
+steps:
+  - label: ":docker: Build"
+    command: "envs/piknik-dev/deploy.sh"
