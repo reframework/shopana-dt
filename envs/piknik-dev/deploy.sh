@@ -4,10 +4,10 @@ echo "Deploying Pixli Sandbox"
 echo $WORKDIR
 
 # $WORKDIR = "/root/piknik-dev/stack"
-HOST_STATIC_ROOT = "/root/piknik-dev/static"
+# HOST_STATIC_ROOT = "/root/piknik-dev/static"
 
 mkdir -p "$WORKDIR"
-mkdir -p "$HOST_STATIC_ROOT"
+mkdir -p "/piknik-static"
 
 # cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
 # cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
