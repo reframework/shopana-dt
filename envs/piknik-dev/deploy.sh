@@ -3,11 +3,15 @@ set -eo pipefail
 echo "Deploying Pixli Sandbox"
 
 mkdir -p "$WORKDIR"
+mkdir -p "$HOST_STATIC_ROOT"
 
-cp -r ./envs/${BUILDKITE_DEPLOY_ENV}/docker-compose.yml "$WORKDIR/docker-compose.yml"
-cp -r ./envs/${BUILDKITE_DEPLOY_ENV}/.env "$WORKDIR/.env"
+# cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
+# cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
 
-cd "$WORKDIR"
+cp -r ./envs/piknik-dev/ "$WORKDIR/"
+
+# Go to the working directory
+cd $WORKDIR
 
 # Login to GitHub Container Registry
 echo $DOCKER_LOGIN_PASSWORD | docker login ghcr.io -u reframework-bot --password-stdin
