@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/templates/nginx.conf.template
+      - ./nginx.conf:/etc/nginx/templates/nginx.conf.template
       - "${HOST_STATIC_ROOT}:${NGINX_STATIC_ROOT}:ro"
     ports:
       - "80:80"
