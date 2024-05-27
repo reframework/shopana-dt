@@ -3,17 +3,12 @@ set -eo pipefail
 echo "Deploying Pixli Sandbox"
 echo $WORKDIR
 
-# $WORKDIR = "/root/piknik-dev/stack"
-# HOST_STATIC_ROOT = "/root/piknik-dev/static"
-
 mkdir -p "$WORKDIR"
 mkdir -p "/piknik-static"
 
 cp -r ./envs/piknik-dev/docker-compose.yml "$WORKDIR/docker-compose.yml"
 cp -r ./envs/piknik-dev/.env "$WORKDIR/.env"
 cp -r ./envs/piknik-dev/nginx.conf "$WORKDIR/nginx.conf"
-
-# cp -r ./envs/piknik-dev "$WORKDIR"
 
 # Go to the working directory
 cd $WORKDIR
