@@ -39,7 +39,7 @@ services:
     env_file:
       - .env
 
-  db:
+  postgres:
     image: ghcr.io/reframework/px-postgres:latest
     restart: unless-stopped
     env_file:
