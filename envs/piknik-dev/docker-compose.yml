@@ -25,6 +25,10 @@ services:
     image: ghcr.io/reframework/px-web-app:${WEBAPP_VERSION:-latest}
     restart: unless-stopped
 
+  nextapp:
+    image: ghcr.io/reframework/piknik-nextapp:${WEBAPP_VERSION:-latest}
+    restart: unless-stopped
+
   portal:
     image: ghcr.io/reframework/px-api-portal:${PORTAL_VERSION:-latest}
     restart: unless-stopped
