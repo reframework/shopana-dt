@@ -19,6 +19,7 @@ services:
     depends_on:
       - portal
       - webapp
+      - nextapp
       - migrate
 
   webapp:
@@ -26,7 +27,7 @@ services:
     restart: unless-stopped
 
   nextapp:
-    image: ghcr.io/reframework/piknik-nextapp:${WEBAPP_VERSION:-latest}
+    image: ghcr.io/reframework/piknik-nextapp:${NEXTAPP_VERSION:-latest}
     restart: unless-stopped
 
   portal:
