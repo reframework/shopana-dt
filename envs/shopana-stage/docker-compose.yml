@@ -5,16 +5,32 @@ services:
     image: ghcr.io/reframework/shopana-cms-client:latest
     restart: unless-stopped
     ports:
-      - "80:8080"
+      - "8080:80"
 
   api:
     image: ghcr.io/reframework/shopana-cms-api:latest
     restart: unless-stopped
     ports:
-      - "80:8000"
-    env_file:
-      - .env
+      - "8000:8000"
+    volumes:
+      - /volumes/uploads:/app/uploads
 
+  proxy:
+    image: caddy:latest
+    restart: unless-stopped
+    build:
+      context: ./caddy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      #  Caddy data: don't change!
+      - /volumes/caddy_data:/data
+      - /volumes/caddy_config:/config
+    depends_on:
+      - admin
+      - api
 
 volumes:
   caddy:

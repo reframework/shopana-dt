@@ -1,0 +1,26 @@
+{
+	auto_https off
+}
+
+# Main host
+http://localhost {
+  encode gzip
+
+	handle /api/* {
+	  reverse_proxy * http://api:8000
+	}
+
+  handle /uploads/* {
+    # Cache 1 week
+    header Cache-Control max-age=31536000
+
+    uri strip_prefix /uploads
+    root * /uploads
+    file_server
+	}
+
+  # Web server
+  handle /* {
+	  reverse_proxy * http://admin:80
+	}
+}
